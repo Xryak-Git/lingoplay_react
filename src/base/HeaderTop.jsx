@@ -1,8 +1,9 @@
 /** @format */
 
-import { Affix, Dropdown, Form, Menu, Spin } from 'antd';
+import { Affix, Dropdown, Form, Menu, Spin, Flex } from 'antd';
 import { useLayoutEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { SiteHeader } from './SiteHeader';
 // import LoginModal from '../../pages/user/LoginModal';
 
 const { SubMenu } = Menu;
@@ -56,7 +57,11 @@ export default function HeaderTop() {
     return (
         <>
             <Affix className="affixTop" offsetTop={0}>
-                {user?.id ? renderUserItems() : renderGuestItems()}
+                <Flex align="center" gap="16px" justify="space-around" wrap>
+                    <SiteHeader>
+                        {user?.id ? renderUserItems() : renderGuestItems()}
+                    </SiteHeader>
+                </Flex>
             </Affix>
             {/* <LoginModal
                 form={form}

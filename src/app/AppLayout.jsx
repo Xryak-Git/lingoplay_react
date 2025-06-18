@@ -12,13 +12,8 @@ const { Footer, Content } = Layout;
 export default function AppLayout({ children }) {
     return (
         <Layout style={{ minHeight: '100vh' }}>
-            <FloatButton.BackTop
-                visibilityHeight="100"
-                icon={<UpOutlined />}
-                className="components-back-top-demo-custom ant-back-top-inner"
-            />
             <HeaderTop />
-            <Navbar />
+            {/* <Navbar /> */}
             <Content>{children}</Content>
             <Footer></Footer>
         </Layout>
