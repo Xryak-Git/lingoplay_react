@@ -1,7 +1,21 @@
 {
-  "files": [],
-  "references": [
-    { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.node.json" }
-  ]
+    "compilerOptions": {
+        "module": "es6",
+        "lib": ["dom", "dom.iterable", "esnext"],
+        "target": "es6",
+        "jsx": "preserve",
+        "checkJs": false,
+        "allowJs": true,
+        "esModuleInterop": true,
+        "outDir": "build",
+        "skipLibCheck": true,
+        "moduleResolution": "node",
+        "isolatedModules": true,
+        "baseUrl": "src",
+        "disableSizeLimit": true
+    },
+    "exclude": [
+    "node_modules",
+    "build"
+    ]
 }
