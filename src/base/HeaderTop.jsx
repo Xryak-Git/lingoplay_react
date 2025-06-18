@@ -4,14 +4,12 @@ import { Affix, Dropdown, Form, Menu, Spin, Flex } from 'antd';
 import { useLayoutEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { SiteHeader } from './SiteHeader';
-// import LoginModal from '../../pages/user/LoginModal';
+import { LoginModal } from './LoginModal';
 
 const { SubMenu } = Menu;
 
 export default function HeaderTop() {
     // const CONTEXT = 'LOCAL';
-    const [form] = Form.useForm();
-    const { getFieldsValue, setFields } = form;
 
     useLayoutEffect(() => {
         const links = document.getElementsByTagName('a');
@@ -63,12 +61,10 @@ export default function HeaderTop() {
                     </SiteHeader>
                 </Flex>
             </Affix>
-            {/* <LoginModal
-                form={form}
+            <LoginModal
                 visibleModalLogin={visibleModalLogin}
                 setVisibleModalLogin={setVisibleModalLogin}
-                // setVisibleEsia={setVisibleEsia}
-            /> */}
+            />
         </>
     );
 }
