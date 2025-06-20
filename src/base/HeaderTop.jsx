@@ -4,7 +4,7 @@ import { Affix, Dropdown, Form, Menu, Spin, Flex } from 'antd';
 import { useLayoutEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { SiteHeader } from './SiteHeader';
-import { LoginModal } from './LoginModal';
+import { LoginModal } from '../users/auth/LoginModal';
 
 const { SubMenu } = Menu;
 

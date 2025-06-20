@@ -3,6 +3,7 @@
 import { Button, Flex, Form, Input, Modal, Typography } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
+import { useLogin } from './api/api';
 
 const { Text } = Typography;
 
@@ -10,8 +11,11 @@ export const LoginModal = ({ visibleModalLogin, setVisibleModalLogin }) => {
     const [form] = Form.useForm();
     const navigate = useNavigate();
 
+    const { mutate, isLoading } = useLogin();
+
     const onFinish = (values) => {
-        console.log('Login form values:', values);
+        console.log(values);
+        mutate(values);
     };
 
     return (
@@ -29,12 +33,12 @@ export const LoginModal = ({ visibleModalLogin, setVisibleModalLogin }) => {
             >
                 <Flex vertical gap="middle">
                     <Form.Item
-                        name="username"
-                        label="Логин"
+                        name="email"
+                        label="Почта"
                         rules={[
                             {
                                 required: true,
-                                message: 'Пожалуйста, введите логин',
+                                message: 'Пожалуйста, введите адрес почты',
                             },
                         ]}
                     >
@@ -67,7 +71,13 @@ export const LoginModal = ({ visibleModalLogin, setVisibleModalLogin }) => {
                         />
                     </Form.Item>
 
-                    <Button type="primary" size="large" htmlType="submit" block>
+                    <Button
+                        type="primary"
+                        size="large"
+                        onClick={() => {
+                            form.submit();
+                        }}
+                    >
                         Войти
                     </Button>
                 </Flex>
