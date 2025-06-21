@@ -22,12 +22,11 @@ const api = axios.create({
 });
 
 api.interceptors.request.use((config) => {
-    const accessToken = localStorage.getItem('access_token');
+    const accessToken = localStorage.getItem('token');
     if (accessToken) {
         if (!config.headers) {
             config.headers = {};
         }
-        console.log('Adding Authorization header:', accessToken);
         config.headers['Authorization'] = `Bearer ${accessToken}`;
     }
     return config;
@@ -41,23 +40,28 @@ api.interceptors.response.use(
         if (error.response?.status === 401 && !originalRequest._isRetry) {
             originalRequest._isRetry = true;
             try {
-                const response = await axios.get(`${API_URL}/auth/refresh`, {
-                    withCredentials: true,
-                });
+                const response = await axios.post(
+                    `${API_URL}/auth/refresh`,
+                    null,
+                    {
+                        withCredentials: true,
+                    }
+                );
 
-                const newAccessToken = response.data.access_token;
-                localStorage.setItem('access_token', newAccessToken);
+                const newAccessToken = response.data.token;
+                localStorage.setItem('token', newAccessToken);
 
                 return api.request(originalRequest);
             } catch (e) {
                 console.warn(
                     'Не удалось обновить токен, пользователь не авторизован'
                 );
-                localStorage.removeItem('access_token');
+                localStorage.removeItem('token');
+                return Promise.reject(e);
             }
         }
 
-        throw error;
+        return Promise.reject(error);
     }
 );
 

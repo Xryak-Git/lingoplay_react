@@ -14,7 +14,6 @@ export const LoginModal = ({ visibleModalLogin, setVisibleModalLogin }) => {
     const { mutate, isLoading } = useLogin();
 
     const onFinish = (values) => {
-        console.log(values);
         mutate(values);
     };
 

@@ -5,8 +5,7 @@ import { useUser } from '../users/auth/api/api';
 const { Title, Paragraph } = Typography;
 
 const Home = () => {
-    const { data } = useUser(1);
-    console.log(1);
+    const { data } = useUser();
     return (
         <>
             <Title>Добро пожаловать!</Title>

@@ -21,7 +21,6 @@ export function useLogin() {
                 localStorage.setItem('token', data.token);
             }
 
-            message.success('Файл успешно загружен');
             queryClient.invalidateQueries({
                 queryKey: [keys.login],
             });
@@ -29,19 +28,19 @@ export function useLogin() {
     });
 }
 
-export function useUser(id) {
+export function useUser() {
     return useQuery({
-        queryKey: [keys.user, id],
-        queryFn: () => get(apiUrls.user(id)).then((res) => res.data),
+        queryKey: [...keys.currentUser],
+        queryFn: () => get(apiUrls.currentUser()),
     });
 }
 
 const keys = {
     login: ['login'],
-    user: ['me'],
+    currentUser: ['current'],
 };
 
 export const apiUrls = {
     login: () => '/auth/login',
-    user: (id) => `auth/${id}`,
+    currentUser: () => `/users/current`,
 };
