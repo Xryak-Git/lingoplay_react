@@ -1,15 +1,25 @@
 /** @format */
 
-import { Affix, Dropdown, Form, Menu, Spin, Flex } from 'antd';
+import {
+    Affix,
+    Dropdown,
+    Form,
+    Menu,
+    Spin,
+    Flex,
+    Skeleton,
+    Button,
+} from 'antd';
 import { useLayoutEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { SiteHeader } from './SiteHeader';
 import { LoginModal } from '../users/auth/LoginModal';
-
-const { SubMenu } = Menu;
+import { useUser } from '../users/auth/api/api';
+import { UserOutlined, LoginOutlined } from '@ant-design/icons';
 
 export default function HeaderTop() {
-    // const CONTEXT = 'LOCAL';
+    const { data: user, isLoading } = useUser();
+    const [visibleModalLogin, setVisibleModalLogin] = useState(false);
 
     useLayoutEffect(() => {
         const links = document.getElementsByTagName('a');
@@ -23,42 +33,51 @@ export default function HeaderTop() {
         }
     });
 
-    const [visibleModalLogin, setVisibleModalLogin] = useState(false);
-
     const onLogin = () => {
         setVisibleModalLogin(true);
     };
 
+    const onLogout = () => {};
+
+    const goToProfile = () => {};
+
+    const onRegistrate = () => {};
+
     const renderUserItems = () => (
         <>
-            <a
-                onClick={() => {
-                    onLogout();
-                }}
-            >
-                Выход
-            </a>
+            <SiteHeader.Item>
+                <Button
+                    icon={<UserOutlined />}
+                    onClick={goToProfile}
+                    type="link"
+                >
+                    {user.username}
+                </Button>
+            </SiteHeader.Item>
+            <SiteHeader.Item>
+                <Button icon={<LoginOutlined />} onClick={onLogout}>
+                    Выход
+                </Button>
+            </SiteHeader.Item>
         </>
     );
 
     const renderGuestItems = () => (
         <>
             <a onClick={() => onLogin()}>Войти</a>
+            <a onClick={() => onRegistrate()}>Зарегистрироваться</a>
         </>
     );
-
-    const user = {
-        // id: 10,
-        pek: 20,
-    };
 
     return (
         <>
             <Affix className="affixTop" offsetTop={0}>
                 <Flex align="center" gap="16px" justify="space-around" wrap>
-                    <SiteHeader>
-                        {user?.id ? renderUserItems() : renderGuestItems()}
-                    </SiteHeader>
+                    <Skeleton loading={isLoading}>
+                        <SiteHeader>
+                            {user?.id ? renderUserItems() : renderGuestItems()}
+                        </SiteHeader>
+                    </Skeleton>
                 </Flex>
             </Affix>
             <LoginModal

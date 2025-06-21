@@ -1,48 +1,74 @@
 /** @format */
 
-import { Space } from 'antd';
+import { Space, Flex } from 'antd';
 import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint';
 import { Logo } from './Logo';
+import React from 'react';
 
-const SiteHeader = ({ children }) => {
+export const SiteHeader = ({ children }) => {
     const breakpoint = useBreakpoint();
+
+    const containerStyle = {
+        height: '80px',
+        width: '100%',
+        background: 'white',
+        zIndex: 3,
+    };
+
+    const commonSpaceStyle = {
+        width: '100%',
+        alignItems: 'center',
+    };
+
     return (
-        <div
-            style={{
-                height: '80px',
-                width: '100%',
-                background: 'white',
-                display: 'flex',
-                justifyContent: 'center',
-                zIndex: '3',
-            }}
-        >
+        <Flex style={containerStyle} justify="center" align="center">
             {breakpoint.sm ? (
                 <Space
+                    size={32}
                     style={{
-                        width: '100%',
-                        maxWidth: '1500px',
+                        ...commonSpaceStyle,
+                        maxWidth: 1500,
                         justifyContent: 'space-between',
-                        alignItems: 'center',
-                        padding: '0 20px 0 20px',
+                        padding: '0 20px',
                     }}
                 >
-                    <Space size={32}>{breakpoint.sm && <Logo />}</Space>
-                    <Space size={28}>{children}</Space>
+                    <Space size={32}>
+                        <Logo />
+                    </Space>
+                    <Flex gap="large" align="center">
+                        <Space size={28}>{children}</Space>
+                    </Flex>
                 </Space>
             ) : (
                 <Space
+                    size={32}
                     style={{
-                        width: '100%',
+                        ...commonSpaceStyle,
                         justifyContent: 'space-evenly',
-                        alignItems: 'center',
                     }}
                 >
                     {children}
                 </Space>
             )}
-        </div>
+        </Flex>
     );
 };
+const HeaderItem = ({ children, ...props }) => {
+    let styledChild = children;
 
-export { SiteHeader };
+    if (children?.type?.displayName === 'Button') {
+        styledChild = React.cloneElement(children, {
+            style: {
+                border: 'none',
+                boxShadow: 'none',
+                outline: 'none',
+                fontSize: '24px',
+                ...children.props.style,
+            },
+        });
+    }
+
+    return <div {...props}>{styledChild}</div>;
+};
+
+SiteHeader.Item = HeaderItem;
