@@ -2,7 +2,7 @@
 
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { App } from 'antd';
-import { invalidate, post, get } from '../../../base/api/api';
+import { post, get } from '../../../base/api/api';
 
 export function useLogin() {
     const { message } = App.useApp();
@@ -10,7 +10,6 @@ export function useLogin() {
 
     return useMutation({
         mutationFn: (data) => post(apiUrls.login(), data),
-        onSettled: invalidate(keys.login),
 
         onError: async () => {
             message.error('Произошла ошибка');
@@ -20,27 +19,48 @@ export function useLogin() {
             if (data?.token) {
                 localStorage.setItem('token', data.token);
             }
-
-            queryClient.invalidateQueries({
-                queryKey: [keys.login],
-            });
+            queryClient.invalidateQueries([keys.currentUser]);
         },
     });
 }
 
 export function useUser() {
     return useQuery({
-        queryKey: [...keys.currentUser],
-        queryFn: () => get(apiUrls.currentUser()),
+        queryKey: [keys.currentUser],
+        queryFn: async () => {
+            try {
+                return await get(apiUrls.currentUser());
+            } catch (err) {
+                if (err?.response?.status === 403) {
+                    return null;
+                }
+                throw err;
+            }
+        },
+        retry: false,
+        staleTime: 0,
+        refetchOnWindowFocus: true,
+        refetchOnMount: true,
+    });
+}
+
+export function useLogout() {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: () => post(apiUrls.logout()),
+        onSettled: () => {
+            localStorage.removeItem('token');
+            queryClient.invalidateQueries([keys.currentUser]);
+        },
     });
 }
 
 const keys = {
-    login: ['login'],
     currentUser: ['current'],
 };
 
 export const apiUrls = {
     login: () => '/auth/login',
+    logout: () => '/auth/logout',
     currentUser: () => `/users/current`,
 };

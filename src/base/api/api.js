@@ -79,11 +79,4 @@ export const put = (url, body) => api.put(url, body).then((res) => res.data);
 
 export const del = (url) => api.delete(url).then((res) => res.data);
 
-export const invalidate =
-    (...keys) =>
-    async () => {
-        for (const key of keys)
-            await queryClient.invalidateQueries({ queryKey: key });
-    };
-
 export default api;

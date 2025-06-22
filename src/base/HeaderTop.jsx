@@ -14,12 +14,15 @@ import { useLayoutEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { SiteHeader } from './SiteHeader';
 import { LoginModal } from '../users/auth/LoginModal';
-import { useUser } from '../users/auth/api/api';
+import { useUser, useLogout } from '../users/auth/api/api';
 import { UserOutlined, LoginOutlined } from '@ant-design/icons';
 
 export default function HeaderTop() {
     const { data: user, isLoading } = useUser();
+    const { mutate } = useLogout();
     const [visibleModalLogin, setVisibleModalLogin] = useState(false);
+
+    console.log('user', user);
 
     useLayoutEffect(() => {
         const links = document.getElementsByTagName('a');
@@ -37,7 +40,9 @@ export default function HeaderTop() {
         setVisibleModalLogin(true);
     };
 
-    const onLogout = () => {};
+    const onLogout = () => {
+        mutate();
+    };
 
     const goToProfile = () => {};
 
@@ -64,8 +69,16 @@ export default function HeaderTop() {
 
     const renderGuestItems = () => (
         <>
-            <a onClick={() => onLogin()}>Войти</a>
-            <a onClick={() => onRegistrate()}>Зарегистрироваться</a>
+            <SiteHeader.Item>
+                <Button icon={<UserOutlined />} onClick={onLogin} type="link">
+                    Войти
+                </Button>
+            </SiteHeader.Item>
+            <SiteHeader.Item>
+                <Button icon={<LoginOutlined />} onClick={onRegistrate}>
+                    Зарегистрироваться
+                </Button>
+            </SiteHeader.Item>
         </>
     );
 
