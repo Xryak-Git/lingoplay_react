@@ -18,7 +18,7 @@ import { useUser, useLogout } from '../users/auth/api/api';
 import { UserOutlined, LoginOutlined } from '@ant-design/icons';
 
 export default function HeaderTop() {
-    const { data: user, isLoading } = useUser();
+    const { user, isLoading } = useUser();
     const { mutate } = useLogout();
     const [visibleModalLogin, setVisibleModalLogin] = useState(false);
 

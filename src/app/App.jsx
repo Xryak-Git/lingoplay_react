@@ -1,11 +1,18 @@
 /** @format */
 
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import {
+    Navigate,
+    BrowserRouter as Router,
+    Routes,
+    Route,
+} from 'react-router-dom';
 import Home from '../pages/Home';
 import './App.css';
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import AppLayout from './AppLayout';
+import { AuthProvider, useAuth } from '../users/auth/AuthContext';
+import { App as AntdApp } from 'antd';
 
 const queryClient = new QueryClient({
     defaultOptions: {
@@ -24,19 +31,40 @@ const ReactQueryMainConfigProvider = ({ children }) => {
     );
 };
 
-function App() {
+export default function App() {
     return (
         <ReactQueryMainConfigProvider>
-            <Router>
-                <AppLayout>
-                    <Routes>
-                        <Route path="/" element={<Home />} />
-                        <Route path="/auth" element={<Home />} />
-                    </Routes>
-                </AppLayout>
-            </Router>
+            <AuthProvider>
+                <Router>
+                    <AppLayout>
+                        <Routes>
+                            <Route path="/" element={<Home />} />
+                            <Route
+                                path="/test"
+                                element={
+                                    <PrivateRoute>
+                                        <Home />
+                                    </PrivateRoute>
+                                }
+                            />
+                        </Routes>
+                    </AppLayout>
+                </Router>
+            </AuthProvider>
         </ReactQueryMainConfigProvider>
     );
 }
 
-export default App;
+export function PrivateRoute({ children }) {
+    const { user, loading } = useAuth();
+    const { message } = AntdApp.useApp();
+
+    if (loading) return null;
+
+    if (!user) {
+        message.error('Вы не авторизованы');
+        return <Navigate to="/" replace />;
+    }
+
+    return children;
+}

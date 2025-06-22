@@ -5,14 +5,19 @@ import { useUser } from '../users/auth/api/api';
 const { Title, Paragraph } = Typography;
 
 const Home = () => {
-    const { data } = useUser();
+    const { user } = useUser();
     return (
         <>
             <Title>Добро пожаловать!</Title>
             <Paragraph>
                 Это ваша первая страница на React с Ant Design.
             </Paragraph>
-            <Button type="primary" onClick={console.log(data)}>
+            <Button
+                type="primary"
+                onClick={() => {
+                    console.log(user);
+                }}
+            >
                 Нажми меня
             </Button>
         </>

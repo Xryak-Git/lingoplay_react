@@ -3,9 +3,11 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { App } from 'antd';
 import { post, get } from '../../../base/api/api';
+import { useAuth } from '../AuthContext';
 
 export function useLogin() {
     const { message } = App.useApp();
+    const { setUser } = useAuth();
     const queryClient = useQueryClient();
 
     return useMutation({
@@ -19,38 +21,24 @@ export function useLogin() {
             if (data?.token) {
                 localStorage.setItem('token', data.token);
             }
-            queryClient.invalidateQueries([keys.currentUser]);
+            setUser(data.user);
         },
     });
 }
 
 export function useUser() {
-    return useQuery({
-        queryKey: [keys.currentUser],
-        queryFn: async () => {
-            try {
-                return await get(apiUrls.currentUser());
-            } catch (err) {
-                if (err?.response?.status === 403) {
-                    return null;
-                }
-                throw err;
-            }
-        },
-        retry: false,
-        staleTime: 0,
-        refetchOnWindowFocus: true,
-        refetchOnMount: true,
-    });
+    const { user, loading } = useAuth();
+    return { user, isLoading: loading };
 }
 
 export function useLogout() {
+    const { setUser } = useAuth();
     const queryClient = useQueryClient();
     return useMutation({
         mutationFn: () => post(apiUrls.logout()),
         onSettled: () => {
             localStorage.removeItem('token');
-            queryClient.invalidateQueries([keys.currentUser]);
+            setUser(null);
         },
     });
 }
