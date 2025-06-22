@@ -26,6 +26,23 @@ export function useLogin() {
     });
 }
 
+export function useRegistrate() {
+    const { message } = App.useApp();
+    const queryClient = useQueryClient();
+
+    return useMutation({
+        mutationFn: (data) => post(apiUrls.registrate(), data),
+
+        onError: async () => {
+            message.error('Неверный адрес электронной почты или пароль');
+        },
+
+        onSuccess: (data) => {
+            message.success('Вы успешно зарегистрированы');
+        },
+    });
+}
+
 export function useUser() {
     const { user, loading } = useAuth();
     return { user, isLoading: loading };
@@ -49,6 +66,7 @@ const keys = {
 
 export const apiUrls = {
     login: () => '/auth/login',
+    registrate: () => '/auth/registrate',
     logout: () => '/auth/logout',
     currentUser: () => `/users/current`,
 };

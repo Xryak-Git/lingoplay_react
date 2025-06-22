@@ -13,14 +13,15 @@ import {
 import { useLayoutEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { SiteHeader } from './SiteHeader';
-import { LoginModal } from '../users/auth/LoginModal';
+import { AuthModal } from '../users/auth/AuthModal';
 import { useUser, useLogout } from '../users/auth/api/api';
 import { UserOutlined, LoginOutlined } from '@ant-design/icons';
 
 export default function HeaderTop() {
     const { user, isLoading } = useUser();
     const { mutate } = useLogout();
-    const [visibleModalLogin, setVisibleModalLogin] = useState(false);
+    const [visibleAuthModal, setVisibleAuthModal] = useState(false);
+    const [isRegister, setIsRegister] = useState(false);
 
     console.log('user', user);
 
@@ -37,7 +38,7 @@ export default function HeaderTop() {
     });
 
     const onLogin = () => {
-        setVisibleModalLogin(true);
+        setVisibleAuthModal(true);
     };
 
     const onLogout = () => {
@@ -46,7 +47,10 @@ export default function HeaderTop() {
 
     const goToProfile = () => {};
 
-    const onRegistrate = () => {};
+    const onRegistrate = () => {
+        setIsRegister(true);
+        setVisibleAuthModal(true);
+    };
 
     const renderUserItems = () => (
         <>
@@ -93,9 +97,11 @@ export default function HeaderTop() {
                     </Skeleton>
                 </Flex>
             </Affix>
-            <LoginModal
-                visibleModalLogin={visibleModalLogin}
-                setVisibleModalLogin={setVisibleModalLogin}
+            <AuthModal
+                visibleAuthModal={visibleAuthModal}
+                setVisibleAuthModal={setVisibleAuthModal}
+                isRegister={isRegister}
+                setIsRegister={setIsRegister}
             />
         </>
     );
