@@ -14,7 +14,7 @@ export function useLogin() {
         mutationFn: (data) => post(apiUrls.login(), data),
 
         onError: async () => {
-            message.error('Произошла ошибка');
+            message.error('Неверный адрес электронной почты или пароль');
         },
 
         onSuccess: (data) => {

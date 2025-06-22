@@ -14,8 +14,11 @@ export const LoginModal = ({ visibleModalLogin, setVisibleModalLogin }) => {
     const { mutate, isLoading } = useLogin();
 
     const onFinish = (values) => {
-        mutate(values);
-        setVisibleModalLogin(false);
+        mutate(values, {
+            onSuccess: () => {
+                setVisibleModalLogin(false);
+            },
+        });
     };
 
     return (
