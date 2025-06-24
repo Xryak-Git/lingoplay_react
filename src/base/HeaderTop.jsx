@@ -74,7 +74,7 @@ export default function HeaderTop() {
     const renderGuestItems = () => (
         <>
             <SiteHeader.Item>
-                <Button icon={<UserOutlined />} onClick={onLogin} type="link">
+                <Button icon={<UserOutlined />} onClick={onLogin}>
                     Войти
                 </Button>
             </SiteHeader.Item>

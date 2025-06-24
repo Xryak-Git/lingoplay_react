@@ -1,13 +1,12 @@
-/* HeaderTop.module.css */
 .affixTop {
-    background-color: var(--header-bg);
-    border-bottom: 1px solid var(--header-border);
+    background-color: var(--header-bg, #1A1A1A);
+    border-bottom: 1px solid var(--header-border, #444);
     z-index: 100;
     width: 100%;
     padding: 8px 16px;
     transition: background-color 0.3s ease;
-    border-bottom-left-radius: 10%;
-    border-bottom-right-radius: 10%;
+    border-bottom-left-radius: 3%;
+    border-bottom-right-radius: 3%;
     border: none;
 }
 

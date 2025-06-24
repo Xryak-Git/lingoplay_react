@@ -15,12 +15,12 @@ export function ThemeProvider({ children }) {
     const themeConfig = {
         algorithm: isDarkMode ? theme.darkAlgorithm : theme.defaultAlgorithm,
         token: {
-            colorPrimary: '#5EEAD4',
-            colorText: isDarkMode ? '#AAB2C5' : '#1C1E26',
-            colorBgBase: isDarkMode ? '#1C1E26' : '#ffffff',
-            colorBgContainer: isDarkMode ? '#2E3440' : '#f0f2f5',
-            fontFamily: "'Inter', sans-serif",
-            borderRadius: 8,
+            colorPrimary: '#C2B280',
+            colorText: isDarkMode ? '#D2B48C' : '#1C1E26',
+            colorBgBase: isDarkMode ? '#0F0F0F' : '#ffffff',
+            colorBgContainer: isDarkMode ? '#1A1A1A' : '#f0f2f5',
+            fontFamily: "'Courier New', monospace",
+            borderRadius: 2,
         },
     };
 
