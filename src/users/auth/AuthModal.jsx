@@ -65,11 +65,7 @@ export const AuthModal = ({
                                 size="large"
                                 placeholder="Имя пользователя..."
                                 allowClear
-                                suffix={
-                                    <UserOutlined
-                                        style={{ color: 'rgba(0,0,0,.45)' }}
-                                    />
-                                }
+                                suffix={<UserOutlined />}
                             />
                         </Form.Item>
                     )}
@@ -87,11 +83,7 @@ export const AuthModal = ({
                             size="large"
                             placeholder="Почта..."
                             allowClear
-                            suffix={
-                                <MailOutlined
-                                    style={{ color: 'rgba(0,0,0,.45)' }}
-                                />
-                            }
+                            suffix={<MailOutlined />}
                         />
                     </Form.Item>
 

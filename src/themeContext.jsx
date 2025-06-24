@@ -17,6 +17,8 @@ export function ThemeProvider({ children }) {
         token: {
             colorPrimary: '#C2B280',
             colorText: isDarkMode ? '#D2B48C' : '#1C1E26',
+            colorIcon: isDarkMode ? '#E5D8A8' : '#1C1E26',
+            colorIconHover: isDarkMode ? '#FFF2B2' : '#5C3B00',
             colorBgBase: isDarkMode ? '#0F0F0F' : '#ffffff',
             colorBgContainer: isDarkMode ? '#1A1A1A' : '#f0f2f5',
             fontFamily: "'Courier New', monospace",
