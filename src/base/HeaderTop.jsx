@@ -88,15 +88,24 @@ export default function HeaderTop() {
 
     return (
         <>
-            <Affix className="affixTop" offsetTop={0}>
-                <Flex align="center" gap="16px" justify="space-around" wrap>
-                    <Skeleton loading={isLoading}>
-                        <SiteHeader>
-                            {user?.id ? renderUserItems() : renderGuestItems()}
-                        </SiteHeader>
-                    </Skeleton>
-                </Flex>
+            <Affix offsetTop={0}>
+                <div>
+                    <Flex
+                        align="center"
+                        justify="space-between"
+                        className={'affixTop'}
+                    >
+                        <Skeleton loading={isLoading}>
+                            <SiteHeader>
+                                {user?.id
+                                    ? renderUserItems()
+                                    : renderGuestItems()}
+                            </SiteHeader>
+                        </Skeleton>
+                    </Flex>
+                </div>
             </Affix>
+
             <AuthModal
                 visibleAuthModal={visibleAuthModal}
                 setVisibleAuthModal={setVisibleAuthModal}
