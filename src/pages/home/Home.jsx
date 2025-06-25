@@ -1,7 +1,7 @@
 /** @format */
 
 import { Button, Typography, Layout } from 'antd';
-import { useUser } from '../users/auth/api/api';
+import { useUser } from '../../entities/user/model/api';
 const { Title, Paragraph } = Typography;
 
 const Home = () => {

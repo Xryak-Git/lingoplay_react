@@ -1,8 +1,8 @@
 /** @format */
 
 import { createContext, useContext, useState, useEffect } from 'react';
-import { get } from '../../base/api/api';
-import { apiUrls } from './api/api';
+import { get } from '../../../shared/api/api';
+import { apiUrls } from '../../../features/auth/model/api';
 
 const AuthContext = createContext(null);
 

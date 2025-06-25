@@ -2,8 +2,8 @@
 
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { App } from 'antd';
-import { post, get } from '../../../base/api/api';
-import { useAuth } from '../AuthContext';
+import { post, get } from '../../../shared/api/api';
+import { useAuth } from '../../../features/auth/model/AuthContext';
 
 export function useLogin() {
     const { message } = App.useApp();
@@ -41,11 +41,6 @@ export function useRegistrate() {
             message.success('Вы успешно зарегистрированы');
         },
     });
-}
-
-export function useUser() {
-    const { user, loading } = useAuth();
-    return { user, isLoading: loading };
 }
 
 export function useLogout() {

@@ -6,8 +6,8 @@ import 'antd/dist/reset.css';
 import './index.css';
 
 import App from './app/App.jsx';
-import { ThemeProvider, useTheme } from './themeContext.jsx';
-import { ThemeVars } from './ThemeVars';
+import { ThemeProvider, useTheme } from './app/providers/ThemeContext';
+import { ThemeVars } from './app/providers/ThemeVars';
 
 function Root() {
     const { themeConfig, isDarkMode } = useTheme();

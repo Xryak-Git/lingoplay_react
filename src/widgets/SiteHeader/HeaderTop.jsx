@@ -1,20 +1,12 @@
 /** @format */
 
-import {
-    Affix,
-    Dropdown,
-    Form,
-    Menu,
-    Spin,
-    Flex,
-    Skeleton,
-    Button,
-} from 'antd';
+import { Affix, Dropdown, Flex, Skeleton, Button } from 'antd';
 import { useLayoutEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { SiteHeader } from './SiteHeader';
-import { AuthModal } from '../users/auth/AuthModal';
-import { useUser, useLogout } from '../users/auth/api/api';
+import { AuthModal } from '../../features/auth/AuthModal';
+import { useUser } from '../../entities/user/model/api';
+import { useLogout } from '../../features/auth/model/api';
 import { UserOutlined, LoginOutlined } from '@ant-design/icons';
 
 export default function HeaderTop() {

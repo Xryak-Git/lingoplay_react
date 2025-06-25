@@ -3,7 +3,7 @@
 import { Button, Flex, Form, Input, Modal, Typography } from 'antd';
 import { UserOutlined, MailOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
-import { useLogin, useRegistrate } from './api/api';
+import { useLogin, useRegistrate } from './model/api';
 import { useState } from 'react';
 
 const { Text } = Typography;

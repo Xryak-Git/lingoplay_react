@@ -3,8 +3,8 @@
 import { FloatButton, Layout } from 'antd';
 import { UpOutlined } from '@ant-design/icons';
 
-import Navbar from '../base/Navbar';
-import HeaderTop from '../base/HeaderTop';
+import Navbar from '../widgets/SiteHeader/Navbar';
+import HeaderTop from '../widgets/SiteHeader/HeaderTop';
 
 /** @format */
 

@@ -6,12 +6,12 @@ import {
     Routes,
     Route,
 } from 'react-router-dom';
-import Home from '../pages/Home';
+import Home from '../pages/home/Home';
 import './App.css';
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import AppLayout from './AppLayout';
-import { AuthProvider, useAuth } from '../users/auth/AuthContext';
+import { AuthProvider, useAuth } from '../features/auth/model/AuthContext';
 import { App as AntdApp } from 'antd';
 
 const queryClient = new QueryClient({
