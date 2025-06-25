@@ -1,9 +1,7 @@
 /** @format */
 
-import { FloatButton, Layout } from 'antd';
-import { UpOutlined } from '@ant-design/icons';
+import { Layout } from 'antd';
 
-import Navbar from '../widgets/SiteHeader/Navbar';
 import HeaderTop from '../widgets/SiteHeader/HeaderTop';
 
 /** @format */

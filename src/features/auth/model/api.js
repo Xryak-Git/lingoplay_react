@@ -1,8 +1,8 @@
 /** @format */
 
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { App } from 'antd';
-import { post, get } from '../../../shared/api/api';
+import { post } from '../../../shared/api/api';
 import { useAuth } from '../../../features/auth/model/AuthContext';
 
 export function useLogin() {

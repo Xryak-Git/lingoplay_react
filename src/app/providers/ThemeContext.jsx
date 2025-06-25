@@ -3,7 +3,6 @@
 // src/themeContext.jsx
 import { createContext, useContext, useState } from 'react';
 import { theme } from 'antd';
-import { ThemeVars } from './ThemeVars';
 
 const ThemeContext = createContext();
 

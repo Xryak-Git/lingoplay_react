@@ -1,7 +1,7 @@
 /** @format */
 
 import { useEffect, useState } from 'react';
-import { AppstoreTwoTone, HomeTwoTone, MenuOutlined } from '@ant-design/icons';
+import { HomeTwoTone, MenuOutlined } from '@ant-design/icons';
 import { Link, useLocation } from 'react-router-dom';
 import { Affix, Button, Drawer, Menu } from 'antd';
 

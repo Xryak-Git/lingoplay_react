@@ -1,6 +1,6 @@
 /** @format */
 
-import { Button, Typography, Layout } from 'antd';
+import { Button, Typography } from 'antd';
 import { useUser } from '../../entities/user/model/api';
 const { Title, Paragraph } = Typography;
 
