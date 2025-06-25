@@ -1,9 +1,8 @@
 /** @format */
 
-import { Button, Typography, Card, Space, Flex } from 'antd';
+import { Typography } from 'antd';
 import { useUser } from '../../entities/user/model/api';
-import { motion } from 'framer-motion';
-import { SmileOutlined, PlayCircleOutlined } from '@ant-design/icons';
+import { SmileOutlined } from '@ant-design/icons';
 
 const { Title, Paragraph } = Typography;
 

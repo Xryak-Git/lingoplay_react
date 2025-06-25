@@ -23,16 +23,12 @@ export const SiteHeader = ({ children }) => {
         <Flex style={containerStyle} justify="center" align="center">
             {breakpoint.sm ? (
                 <Space
-                    // className={'affixTop'}
                     size={32}
                     style={{
                         ...commonSpaceStyle,
                         maxWidth: 1500,
                         justifyContent: 'space-between',
                         padding: '0 20px',
-                        // borderBottomLeftRadius: '10%',
-                        // borderBottomRightRadius: '10%',
-                        // border: 'none',
                     }}
                 >
                     <Space size={32}>
@@ -44,7 +40,6 @@ export const SiteHeader = ({ children }) => {
                 </Space>
             ) : (
                 <Space
-                    // className={'affixTop'}
                     size={32}
                     style={{
                         ...commonSpaceStyle,

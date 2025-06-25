@@ -14,6 +14,7 @@ import AppLayout from './AppLayout';
 import { AuthProvider, useAuth } from '../features/auth/model/AuthContext';
 import { App as AntdApp } from 'antd';
 import { Profile } from '../pages/profile/Profile';
+import { useEffect } from 'react';
 
 const queryClient = new QueryClient({
     defaultOptions: {
@@ -36,20 +37,23 @@ export default function App() {
     return (
         <ReactQueryMainConfigProvider>
             <AuthProvider>
-                <Router>
-                    <AppLayout>
-                        <Routes>
-                            <Route path="/" element={<Home />} />
-                            <Route
-                                path="/test"
-                                element={
-                                    // <PrivateRoute>
-                                    <Profile />
-                                }
-                            />
-                        </Routes>
-                    </AppLayout>
-                </Router>
+                <AntdApp>
+                    <Router>
+                        <AppLayout>
+                            <Routes>
+                                <Route path="/" element={<Home />} />
+                                <Route
+                                    path="/test"
+                                    element={
+                                        <PrivateRoute>
+                                            <Profile />
+                                        </PrivateRoute>
+                                    }
+                                />
+                            </Routes>
+                        </AppLayout>
+                    </Router>
+                </AntdApp>
             </AuthProvider>
         </ReactQueryMainConfigProvider>
     );
@@ -59,12 +63,13 @@ export function PrivateRoute({ children }) {
     const { user, loading } = useAuth();
     const { message } = AntdApp.useApp();
 
+    useEffect(() => {
+        if (!loading && !user) {
+            message.error('Вы не авторизованы');
+        }
+    }, [loading, user]);
+
     if (loading) return null;
 
-    if (!user) {
-        message.error('Вы не авторизованы');
-        return <Navigate to="/" replace />;
-    }
-
-    return children;
+    return user ? children : <Navigate to="/" replace />;
 }

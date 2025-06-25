@@ -1,6 +1,5 @@
 /** @format */
 
-// src/themeContext.jsx
 import { createContext, useContext, useState } from 'react';
 import { theme } from 'antd';
 
