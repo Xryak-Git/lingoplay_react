@@ -1,5 +1,7 @@
+/** @format */
+
 .affixTop {
-    background-color: var(--header-bg, #1A1A1A);
+    background-color: var(--header-bg, #1a1a1a);
     border-bottom: 1px solid var(--header-border, #444);
     z-index: 100;
     width: 100%;
@@ -11,8 +13,8 @@
 }
 
 @media (max-width: 640px) {
-  .affixTop {
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-  }
+    .affixTop {
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+    }
 }

@@ -6,13 +6,14 @@ import {
     Routes,
     Route,
 } from 'react-router-dom';
-import Home from '../pages/home/Home';
+import { Home } from '../pages/home/Home';
 import './App.css';
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import AppLayout from './AppLayout';
 import { AuthProvider, useAuth } from '../features/auth/model/AuthContext';
 import { App as AntdApp } from 'antd';
+import { Profile } from '../pages/profile/Profile';
 
 const queryClient = new QueryClient({
     defaultOptions: {
@@ -42,9 +43,8 @@ export default function App() {
                             <Route
                                 path="/test"
                                 element={
-                                    <PrivateRoute>
-                                        <Home />
-                                    </PrivateRoute>
+                                    // <PrivateRoute>
+                                    <Profile />
                                 }
                             />
                         </Routes>
