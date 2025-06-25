@@ -49,6 +49,8 @@ export const SiteHeader = ({ children }) => {
                     style={{
                         ...commonSpaceStyle,
                         justifyContent: 'space-evenly',
+                        flexWrap: 'wrap',
+                        gap: '10px',
                     }}
                 >
                     {children}
