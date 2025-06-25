@@ -4,7 +4,6 @@ import { Button, Flex, Form, Input, Modal, Typography } from 'antd';
 import { UserOutlined, MailOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import { useLogin, useRegistrate } from './model/api';
-import { useState } from 'react';
 
 const { Text } = Typography;
 
@@ -141,8 +140,8 @@ export const AuthModal = ({
                         type="primary"
                         size="large"
                         loading={
-                            loginMutation.isLoading ||
-                            registerMutation.isLoading
+                            loginMutation.isPending ||
+                            registerMutation.isPending
                         }
                         onClick={() => form.submit()}
                     >
