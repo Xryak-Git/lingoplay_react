@@ -27,9 +27,10 @@ const Container = ({ children, style }) => (
         style={{
             width: '100%',
             maxWidth: 1500,
-            padding: '0 16px',
+            padding: '20px',
             margin: '0 auto',
             minHeight: '100vh',
+            backgroundColor: '#1A1A1A',
             ...style,
         }}
     >
