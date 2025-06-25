@@ -2,19 +2,20 @@
 
 import {
     Navigate,
+    Route,
     BrowserRouter as Router,
     Routes,
-    Route,
 } from 'react-router-dom';
 import { Home } from '../pages/home/Home';
 import './App.css';
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import AppLayout from './AppLayout';
-import { AuthProvider, useAuth } from '../features/auth/model/AuthContext';
 import { App as AntdApp } from 'antd';
-import { Profile } from '../pages/profile/Profile';
 import { useEffect } from 'react';
+import { AuthProvider, useAuth } from '../features/auth/model/AuthContext';
+import { Profile } from '../pages/profile/Profile';
+import { VideoUpload } from '../pages/videoUpload/VideoUpload';
+import AppLayout from './AppLayout';
 
 const queryClient = new QueryClient({
     defaultOptions: {
@@ -49,6 +50,10 @@ export default function App() {
                                             <Profile />
                                         </PrivateRoute>
                                     }
+                                />
+                                <Route
+                                    path="/video-upload"
+                                    element={<VideoUpload />}
                                 />
                             </Routes>
                         </AppLayout>
