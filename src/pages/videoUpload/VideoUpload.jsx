@@ -1,17 +1,17 @@
 /** @format */
 
-import React, { useState, useEffect } from 'react';
-import { Typography, Upload, Button, List, Modal, Grid, Divider } from 'antd';
-import { UploadOutlined } from '@ant-design/icons';
+import { PlusOutlined } from '@ant-design/icons';
+import { Button, Divider, Modal, Select, Typography } from 'antd';
+import { useState } from 'react';
 import { useUser } from '../../entities/user/model/api';
 import { VideoListWithHoverPreview } from './VideoListWithHoverPreview';
+import { VideoUplodaModal } from './VideoUploadModal';
 
 const { Title } = Typography;
+const { Option } = Select;
 
 export const VideoUpload = () => {
     const { user } = useUser();
-
-    // Пример данных видео, которые могут приходить с сервера
     const [videos, setVideos] = useState([
         {
             id: 1,
@@ -44,54 +44,38 @@ export const VideoUpload = () => {
             title: 'Video 2',
         },
     ]);
-
+    const [uploadModalOpen, setUploadModalOpen] = useState(false);
+    const [previewModalVisible, setPreviewModalVisible] = useState(false);
     const [selectedVideo, setSelectedVideo] = useState(null);
-    const [isModalVisible, setIsModalVisible] = useState(false);
 
-    // Обработчик загрузки (тут просто заглушка)
-    const handleUpload = (file) => {
-        // Здесь нужно реализовать логику загрузки файла на сервер
-        // Для примера добавим видео в список с фиктивным url
-        const newVideo = {
-            id: videos.length + 1,
-            url: URL.createObjectURL(file),
-            title: file.name,
-        };
-        setVideos([...videos, newVideo]);
-        return false; // отменяем автоматическую загрузку, чтобы контролировать процесс сами
+    const openUploadModal = () => {
+        setUploadModalOpen(true);
     };
 
-    // Открыть видео в модальном окне
-    const openVideo = (video) => {
+    const openPreview = (video) => {
         setSelectedVideo(video);
-        setIsModalVisible(true);
-    };
-
-    const closeModal = () => {
-        setIsModalVisible(false);
-        setSelectedVideo(null);
+        setPreviewModalVisible(true);
     };
 
     return (
         <>
             <Title level={2}>Видео пользователя: {user?.name || 'Гость'}</Title>
 
-            <Upload
-                beforeUpload={handleUpload}
-                accept="video/*"
-                showUploadList={false} // скрыть дефолтный список файлов
-            >
-                <Button icon={<UploadOutlined />}>Загрузить видео</Button>
-            </Upload>
+            <Button icon={<PlusOutlined />} onClick={openUploadModal}>
+                Добавить видео
+            </Button>
             <Divider />
 
-            <VideoListWithHoverPreview videos={videos} openVideo={openVideo} />
+            <VideoListWithHoverPreview
+                videos={videos}
+                openVideo={openPreview}
+            />
 
             <Modal
-                visible={isModalVisible}
+                visible={previewModalVisible}
                 title={selectedVideo?.title}
                 footer={null}
-                onCancel={closeModal}
+                onCancel={() => setPreviewModalVisible(false)}
                 width="60%"
             >
                 {selectedVideo && (
@@ -102,6 +86,10 @@ export const VideoUpload = () => {
                     />
                 )}
             </Modal>
+            <VideoUplodaModal
+                uploadModalOpen={uploadModalOpen}
+                setUploadModalOpen={setUploadModalOpen}
+            />
         </>
     );
 };
