@@ -5,20 +5,25 @@ import { Typography, Flex, Card, Spin } from 'antd';
 
 const { Text } = Typography;
 
-export const VideoListWithHoverPreview = ({ videos, openVideo }) => (
-    <Flex wrap gap={16} justify="flex-start">
+export const VideoListWithHoverPreview = ({
+    videos,
+    openVideo,
+    previewHeight = 300,
+}) => (
+    <Flex wrap="wrap" gap={16} justify="flex-start">
         {videos.map((video) => (
             <VideoCard
                 key={video.id}
                 video={video}
                 onClick={() => openVideo(video)}
+                previewHeight={previewHeight}
             />
         ))}
     </Flex>
 );
 
 // TODO: можно попробовать react-hover-video-player когда tumblnail будет в ответе приходить
-const VideoCard = ({ video, onClick }) => {
+const VideoCard = ({ video, onClick, previewHeight }) => {
     const [isHovered, setIsHovered] = useState(false);
     const [thumbnail, setThumbnail] = useState(null);
     const videoRef = useRef(null);
@@ -45,7 +50,7 @@ const VideoCard = ({ video, onClick }) => {
     const handleMouseLeave = useCallback(() => setIsHovered(false), []);
 
     const mediaStyle = {
-        height: 120,
+        height: previewHeight,
         width: '100%',
         objectFit: 'cover',
         borderRadius: '8px 8px 0 0',
@@ -83,7 +88,12 @@ const VideoCard = ({ video, onClick }) => {
             onClick={onClick}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
-            style={{ width: 200, flexShrink: 0, userSelect: 'none' }}
+            style={{
+                width: 'calc(25% - 12px)',
+                minWidth: 160,
+                flexShrink: 0,
+                userSelect: 'none',
+            }}
             cover={mediaContent}
             bodyStyle={{ padding: '8px' }}
         >

@@ -23,6 +23,26 @@ export const VideoUpload = () => {
             url: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4',
             title: 'Video 2',
         },
+        {
+            id: 12,
+            url: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+            title: 'Video 1',
+        },
+        {
+            id: 22,
+            url: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4',
+            title: 'Video 2',
+        },
+        {
+            id: 13,
+            url: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+            title: 'Video 1',
+        },
+        {
+            id: 23,
+            url: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4',
+            title: 'Video 2',
+        },
     ]);
 
     const [selectedVideo, setSelectedVideo] = useState(null);
