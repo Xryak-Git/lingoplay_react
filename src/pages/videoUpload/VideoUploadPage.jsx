@@ -10,7 +10,7 @@ import { VideoUplodaModal } from './VideoUploadModal';
 const { Title } = Typography;
 const { Option } = Select;
 
-export const VideoUpload = () => {
+export const VideoUploadPage = () => {
     const { user } = useUser();
     const [videos, setVideos] = useState([
         {

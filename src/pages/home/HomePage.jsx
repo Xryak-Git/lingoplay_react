@@ -6,7 +6,7 @@ import { SmileOutlined, PlayCircleOutlined } from '@ant-design/icons';
 
 const { Title, Paragraph } = Typography;
 
-export const Home = () => {
+export const HomePage = () => {
     const { user } = useUser();
 
     return (

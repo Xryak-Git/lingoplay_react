@@ -6,7 +6,7 @@ import { SmileOutlined } from '@ant-design/icons';
 
 const { Title, Paragraph } = Typography;
 
-export const Profile = () => {
+export const ProfilePage = () => {
     const { user } = useUser();
 
     return (
