@@ -7,15 +7,32 @@ export const API_URL = 'http://127.0.0.1:8000';
 const api = axios.create({
     baseURL: API_URL,
     withCredentials: true,
-    headers: {
-        'Content-Type': 'application/json',
-    },
     transformRequest: [
         (data, headers) => {
-            if (data && typeof data === 'object') {
-                return JSON.stringify(data);
+            if (data instanceof FormData) {
+                let hasFile = false;
+
+                for (const [key, value] of data.entries()) {
+                    if (value instanceof File || value instanceof Blob) {
+                        hasFile = true;
+                        break;
+                    }
+                }
+
+                if (!hasFile) {
+                    const jsonObj = {};
+                    for (const [key, value] of data.entries()) {
+                        jsonObj[key] = value;
+                    }
+                    headers['Content-Type'] = 'application/json';
+                    return JSON.stringify(jsonObj);
+                }
+
+                delete headers['Content-Type'];
+                return data;
             }
-            return data;
+            headers['Content-Type'] = 'application/json';
+            return JSON.stringify(data);
         },
     ],
 });
