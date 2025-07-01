@@ -14,7 +14,7 @@ import { App as AntdApp } from 'antd';
 import { useEffect } from 'react';
 import { AuthProvider, useAuth } from '../features/auth/model/AuthContext';
 import { ProfilePage } from '../pages/profile/ProfilePage';
-import { VideoUploadPage } from '../pages/videoUpload/VideoUploadPage';
+import { UploadsPage } from '../pages/uploads/UploadsPage';
 import AppLayout from './AppLayout';
 
 const queryClient = new QueryClient({
@@ -52,8 +52,8 @@ export default function App() {
                                     }
                                 />
                                 <Route
-                                    path="/video-upload"
-                                    element={<VideoUploadPage />}
+                                    path="/uploads"
+                                    element={<UploadsPage />}
                                 />
                             </Routes>
                         </AppLayout>

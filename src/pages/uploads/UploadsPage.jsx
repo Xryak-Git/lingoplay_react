@@ -11,7 +11,7 @@ import { useGetVideosList } from '../../entities/uploads/model/api';
 const { Title } = Typography;
 const { Option } = Select;
 
-export const VideoUploadPage = () => {
+export const UploadsPage = () => {
     const { user } = useUser();
     const [uploadModalOpen, setUploadModalOpen] = useState(false);
     const [previewModalVisible, setPreviewModalVisible] = useState(false);

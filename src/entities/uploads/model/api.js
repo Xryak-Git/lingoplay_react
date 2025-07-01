@@ -34,7 +34,7 @@ export function useUploadVideo() {
         },
 
         onSuccess: (data) => {
-            message.success(data?.msg);
+            message.success(data?.message);
             queryClient.invalidateQueries({
                 queryKey: keys.allVideos,
             });
