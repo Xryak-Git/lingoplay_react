@@ -1,7 +1,7 @@
 /** @format */
 
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { Typography, Flex, Card, Spin } from 'antd';
+import { Typography, Flex, Card, Spin, Skeleton } from 'antd';
 
 const { Text } = Typography;
 
@@ -9,18 +9,25 @@ export const VideoListWithHoverPreview = ({
     videos,
     openVideo,
     previewHeight = 300,
-}) => (
-    <Flex wrap="wrap" gap={16} justify="flex-start">
-        {videos.map((video) => (
-            <VideoCard
-                key={video.id}
-                video={video}
-                onClick={() => openVideo(video)}
-                previewHeight={previewHeight}
-            />
-        ))}
-    </Flex>
-);
+    loading,
+}) => {
+    if (loading) {
+        return <Skeleton></Skeleton>;
+    }
+
+    return (
+        <Flex wrap="wrap" gap={16} justify="flex-start">
+            {videos.map((video) => (
+                <VideoCard
+                    key={video.id}
+                    video={video}
+                    onClick={() => openVideo(video)}
+                    previewHeight={previewHeight}
+                />
+            ))}
+        </Flex>
+    );
+};
 
 // TODO: можно попробовать react-hover-video-player когда tumblnail будет в ответе приходить
 const VideoCard = ({ video, onClick, previewHeight }) => {
@@ -29,10 +36,10 @@ const VideoCard = ({ video, onClick, previewHeight }) => {
     const videoRef = useRef(null);
 
     useEffect(() => {
-        getVideoThumbnail(video.url)
+        getVideoThumbnail(video.path)
             .then(setThumbnail)
             .catch(() => setThumbnail(null));
-    }, [video.url]);
+    }, [video.path]);
 
     useEffect(() => {
         const ref = videoRef.current;
@@ -60,7 +67,7 @@ const VideoCard = ({ video, onClick, previewHeight }) => {
     const mediaContent = isHovered ? (
         <video
             ref={videoRef}
-            src={video.url}
+            src={video.path}
             muted
             loop
             playsInline

@@ -1,49 +1,18 @@
 /** @format */
 
 import { PlusOutlined } from '@ant-design/icons';
-import { Button, Divider, Modal, Select, Typography } from 'antd';
+import { Button, Divider, Modal, Select, Skeleton, Typography } from 'antd';
 import { useState } from 'react';
 import { useUser } from '../../entities/user/model/api';
 import { VideoListWithHoverPreview } from './VideoListWithHoverPreview';
 import { VideoUplodaModal } from './VideoUploadModal';
+import { useGetVideosList } from '../../entities/uploads/model/api';
 
 const { Title } = Typography;
 const { Option } = Select;
 
 export const VideoUploadPage = () => {
     const { user } = useUser();
-    const [videos, setVideos] = useState([
-        {
-            id: 1,
-            url: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
-            title: 'Video 1',
-        },
-        {
-            id: 2,
-            url: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4',
-            title: 'Video 2',
-        },
-        {
-            id: 12,
-            url: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
-            title: 'Video 1',
-        },
-        {
-            id: 22,
-            url: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4',
-            title: 'Video 2',
-        },
-        {
-            id: 13,
-            url: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
-            title: 'Video 1',
-        },
-        {
-            id: 23,
-            url: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4',
-            title: 'Video 2',
-        },
-    ]);
     const [uploadModalOpen, setUploadModalOpen] = useState(false);
     const [previewModalVisible, setPreviewModalVisible] = useState(false);
     const [selectedVideo, setSelectedVideo] = useState(null);
@@ -57,9 +26,11 @@ export const VideoUploadPage = () => {
         setPreviewModalVisible(true);
     };
 
+    const { data, isLoading } = useGetVideosList();
+
     return (
         <>
-            <Title level={2}>Видео пользователя: {user?.name || 'Гость'}</Title>
+            <Title level={2}>Загруженные видео</Title>
 
             <Button icon={<PlusOutlined />} onClick={openUploadModal}>
                 Добавить видео
@@ -67,10 +38,10 @@ export const VideoUploadPage = () => {
             <Divider />
 
             <VideoListWithHoverPreview
-                videos={videos}
+                videos={data?.list}
                 openVideo={openPreview}
+                loading={isLoading}
             />
-
             <Modal
                 visible={previewModalVisible}
                 title={selectedVideo?.title}
@@ -82,7 +53,8 @@ export const VideoUploadPage = () => {
                     <video
                         controls
                         style={{ width: '100%' }}
-                        src={selectedVideo.url}
+                        src={selectedVideo.path}
+                        autoPlay={true}
                     />
                 )}
             </Modal>

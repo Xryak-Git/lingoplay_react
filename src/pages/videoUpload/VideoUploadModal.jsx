@@ -1,8 +1,20 @@
 /** @format */
 
 import { UploadOutlined } from '@ant-design/icons';
-import { Button, Form, Input, Modal, Select, Typography, Upload } from 'antd';
+import {
+    Button,
+    Form,
+    Input,
+    Modal,
+    Select,
+    Skeleton,
+    Typography,
+    Upload,
+} from 'antd';
 import { useState } from 'react';
+import { post } from '../../shared/api/api';
+import { GameSelect } from './GameSelect';
+import { useUploadVideo } from '../../entities/uploads/model/api';
 
 const { Title } = Typography;
 const { Option } = Select;
@@ -11,7 +23,7 @@ export const VideoUplodaModal = ({ uploadModalOpen, setUploadModalOpen }) => {
     const [form] = Form.useForm();
     const [file, setFile] = useState(null);
 
-    console.log(uploadModalOpen);
+    const uploadMutation = useUploadVideo();
 
     const handleUpload = () => {
         form.validateFields()
@@ -21,18 +33,12 @@ export const VideoUplodaModal = ({ uploadModalOpen, setUploadModalOpen }) => {
                     return;
                 }
 
-                const newVideo = {
-                    id: videos.length + 1,
-                    url: URL.createObjectURL(file),
-                    title: values.title,
-                    type: values.type,
-                };
+                const formData = new FormData();
+                formData.append('file', file);
+                formData.append('title', values.title);
+                formData.append('game_id', values.game_id);
 
-                setVideos([...videos, newVideo]);
-                form.resetFields();
-                setFile(null);
-                setUploadModalOpen(false);
-                message.success('Видео успешно добавлено!');
+                uploadMutation.mutate(formData);
             })
             .catch(() => {
                 message.error('Пожалуйста, заполните все поля.');
@@ -47,42 +53,38 @@ export const VideoUplodaModal = ({ uploadModalOpen, setUploadModalOpen }) => {
             onOk={handleUpload}
             okText="Загрузить"
         >
-            <Form layout="vertical" form={form}>
-                <Form.Item
-                    name="title"
-                    label="Название видео"
-                    rules={[{ required: true, message: 'Введите название' }]}
-                >
-                    <Input />
-                </Form.Item>
-
-                <Form.Item
-                    name="type"
-                    label="Тип видео"
-                    rules={[{ required: true, message: 'Выберите тип' }]}
-                >
-                    <Select placeholder="Выберите тип">
-                        <Option value="lecture">Лекция</Option>
-                        <Option value="interview">Интервью</Option>
-                        <Option value="other">Другое</Option>
-                    </Select>
-                </Form.Item>
-
-                <Form.Item label="Файл видео">
-                    <Upload
-                        accept="video/*"
-                        beforeUpload={(file) => {
-                            setFile(file);
-                            return false;
-                        }}
-                        maxCount={1}
-                        showUploadList={{ showRemoveIcon: true }}
-                        onRemove={() => setFile(null)}
+            <Skeleton loading={uploadMutation.isPending}>
+                <Form layout="vertical" form={form}>
+                    <Form.Item
+                        name="title"
+                        label="Название видео"
+                        rules={[
+                            { required: true, message: 'Введите название' },
+                        ]}
                     >
-                        <Button icon={<UploadOutlined />}>Выбрать файл</Button>
-                    </Upload>
-                </Form.Item>
-            </Form>
+                        <Input />
+                    </Form.Item>
+
+                    <GameSelect />
+
+                    <Form.Item label="Файл видео">
+                        <Upload
+                            accept="video/*"
+                            beforeUpload={(file) => {
+                                setFile(file);
+                                return false;
+                            }}
+                            maxCount={1}
+                            showUploadList={{ showRemoveIcon: true }}
+                            onRemove={() => setFile(null)}
+                        >
+                            <Button icon={<UploadOutlined />}>
+                                Выбрать файл
+                            </Button>
+                        </Upload>
+                    </Form.Item>
+                </Form>
+            </Skeleton>
         </Modal>
     );
 };
