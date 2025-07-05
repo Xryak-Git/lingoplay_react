@@ -1,6 +1,6 @@
 /** @format */
 
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { Typography, Flex, Card, Spin, Skeleton } from 'antd';
 
 const { Text } = Typography;
@@ -32,14 +32,7 @@ export const VideoListWithHoverPreview = ({
 // TODO: можно попробовать react-hover-video-player когда tumblnail будет в ответе приходить
 const VideoCard = ({ video, onClick, previewHeight }) => {
     const [isHovered, setIsHovered] = useState(false);
-    const [thumbnail, setThumbnail] = useState(null);
     const videoRef = useRef(null);
-
-    useEffect(() => {
-        getVideoThumbnail(video.path)
-            .then(setThumbnail)
-            .catch(() => setThumbnail(null));
-    }, [video.path]);
 
     useEffect(() => {
         const ref = videoRef.current;
@@ -73,8 +66,8 @@ const VideoCard = ({ video, onClick, previewHeight }) => {
             playsInline
             style={mediaStyle}
         />
-    ) : thumbnail ? (
-        <img src={thumbnail} alt="Превью" style={mediaStyle} />
+    ) : video?.thumblnail_path ? (
+        <img src={video.thumblnail_path} alt="Превью" style={mediaStyle} />
     ) : (
         <div
             style={{
@@ -110,33 +103,3 @@ const VideoCard = ({ video, onClick, previewHeight }) => {
         </Card>
     );
 };
-
-const getVideoThumbnail = (videoUrl, seekTo = 2) =>
-    new Promise((resolve, reject) => {
-        const video = document.createElement('video');
-        Object.assign(video, {
-            crossOrigin: 'anonymous',
-            src: videoUrl,
-            muted: true,
-            playsInline: true,
-            preload: 'metadata',
-        });
-
-        video.addEventListener('loadedmetadata', () => {
-            video.currentTime = video.duration < seekTo ? 0 : seekTo;
-        });
-
-        video.addEventListener('seeked', () => {
-            const canvas = document.createElement('canvas');
-            canvas.width = video.videoWidth;
-            canvas.height = video.videoHeight;
-
-            canvas
-                .getContext('2d')
-                .drawImage(video, 0, 0, canvas.width, canvas.height);
-            resolve(canvas.toDataURL('image/png'));
-            video.remove();
-        });
-
-        video.addEventListener('error', () => reject('Ошибка загрузки видео'));
-    });
