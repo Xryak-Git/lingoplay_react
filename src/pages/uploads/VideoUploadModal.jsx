@@ -34,7 +34,7 @@ export const VideoUplodaModal = ({ uploadModalOpen, setUploadModalOpen }) => {
                 }
 
                 const formData = new FormData();
-                formData.append('file', file);
+                formData.append('video', file);
                 formData.append('title', values.title);
                 formData.append('game_id', values.game_id);
 
