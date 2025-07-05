@@ -7,7 +7,11 @@ import { SiteHeader } from './SiteHeader';
 import { AuthModal } from '../../features/auth/AuthModal';
 import { useUser } from '../../entities/user/model/api';
 import { useLogout } from '../../features/auth/model/api';
-import { UserOutlined, LoginOutlined } from '@ant-design/icons';
+import {
+    UserOutlined,
+    LoginOutlined,
+    VideoCameraAddOutlined,
+} from '@ant-design/icons';
 
 export default function HeaderTop() {
     const { user, isLoading } = useUser();
@@ -46,6 +50,11 @@ export default function HeaderTop() {
 
     const renderUserItems = () => (
         <>
+            <SiteHeader.Item>
+                <Button icon={<VideoCameraAddOutlined />} type="link">
+                    <Link to={'uploads'}>Загрузка видео</Link>
+                </Button>
+            </SiteHeader.Item>
             <SiteHeader.Item>
                 <Button
                     icon={<UserOutlined />}
