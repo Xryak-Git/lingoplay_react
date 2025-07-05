@@ -40,7 +40,6 @@ export const SiteHeader = ({ children }) => {
                 </Space>
             ) : (
                 <Space
-                    size={32}
                     style={{
                         ...commonSpaceStyle,
                         justifyContent: 'space-evenly',

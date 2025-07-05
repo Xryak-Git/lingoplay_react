@@ -14,7 +14,7 @@ const { Option } = Select;
 export const UploadsPage = () => {
     const { user } = useUser();
     const [uploadModalOpen, setUploadModalOpen] = useState(false);
-    const [previewModalVisible, setPreviewModalVisible] = useState(false);
+    const [previewModalOpen, setPreviewModalOpen] = useState(false);
     const [selectedVideo, setSelectedVideo] = useState(null);
 
     const openUploadModal = () => {
@@ -23,7 +23,7 @@ export const UploadsPage = () => {
 
     const openPreview = (video) => {
         setSelectedVideo(video);
-        setPreviewModalVisible(true);
+        setPreviewModalOpen(true);
     };
 
     const { data, isLoading } = useGetVideosList();
@@ -43,11 +43,12 @@ export const UploadsPage = () => {
                 loading={isLoading}
             />
             <Modal
-                visible={previewModalVisible}
+                open={previewModalOpen}
                 title={selectedVideo?.title}
                 footer={null}
-                onCancel={() => setPreviewModalVisible(false)}
+                onCancel={() => setPreviewModalOpen(false)}
                 width="60%"
+                destroyOnHidden
             >
                 {selectedVideo && (
                     <video

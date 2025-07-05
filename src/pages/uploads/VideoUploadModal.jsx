@@ -12,12 +12,8 @@ import {
     Upload,
 } from 'antd';
 import { useState } from 'react';
-import { post } from '../../shared/api/api';
 import { GameSelect } from './GameSelect';
 import { useUploadVideo } from '../../entities/uploads/model/api';
-
-const { Title } = Typography;
-const { Option } = Select;
 
 export const VideoUplodaModal = ({ uploadModalOpen, setUploadModalOpen }) => {
     const [form] = Form.useForm();

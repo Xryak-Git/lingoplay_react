@@ -29,7 +29,6 @@ export const VideoListWithHoverPreview = ({
     );
 };
 
-// TODO: можно попробовать react-hover-video-player когда tumblnail будет в ответе приходить
 const VideoCard = ({ video, onClick, previewHeight }) => {
     const [isHovered, setIsHovered] = useState(false);
     const videoRef = useRef(null);
@@ -94,8 +93,8 @@ const VideoCard = ({ video, onClick, previewHeight }) => {
                 flexShrink: 0,
                 userSelect: 'none',
             }}
+            styles={{ body: { padding: '8px' } }}
             cover={mediaContent}
-            bodyStyle={{ padding: '8px' }}
         >
             <Text ellipsis style={{ width: '100%' }}>
                 {video.title}

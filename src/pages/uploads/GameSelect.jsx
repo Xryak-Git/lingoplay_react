@@ -30,19 +30,16 @@ export const GameSelect = () => {
                 onSearch={(searchText) => {
                     setFilters({ title: searchText, all: true });
                 }}
-                loading={isFetching}
                 onClear={() => setFilters({ title: '', all: false })}
                 allowClear
+                loading={isFetching}
+                notFoundContent={isLoading ? <Spin size="small" /> : null}
             >
-                {isLoading ? (
-                    <Spin />
-                ) : (
-                    data.list.map((game) => (
-                        <Option key={game.id} value={game.id}>
-                            {game.title}
-                        </Option>
-                    ))
-                )}
+                {data?.list.map((game) => (
+                    <Option key={game.id} value={game.id}>
+                        {game.title}
+                    </Option>
+                ))}
             </Select>
         </Form.Item>
     );
