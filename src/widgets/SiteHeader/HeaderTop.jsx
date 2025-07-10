@@ -52,11 +52,11 @@ export default function HeaderTop() {
                     onClick={goToProfile}
                     type="link"
                 >
-                    {user.username}
+                    <Link to="/profile">{user.username}</Link>
                 </Button>
             </SiteHeader.Item>
             <SiteHeader.Item>
-                <Button icon={<LoginOutlined />} onClick={onLogout}>
+                <Button icon={<LoginOutlined />} onClick={onLogout} danger>
                     Выход
                 </Button>
             </SiteHeader.Item>
@@ -107,26 +107,3 @@ export default function HeaderTop() {
         </>
     );
 }
-
-const ProfileItem = ({ shortUserName }) => {
-    const mainItems = [
-        {
-            key: 'user',
-            label: 'Пользователь',
-            children: [
-                {
-                    key: 'userInfo',
-                    label: <Link to="/user">Профиль пользователя</Link>,
-                },
-            ],
-        },
-    ];
-
-    const items = [...mainItems];
-
-    return (
-        <Dropdown trigger={['hover']} placement="bottom" menu={{ items }}>
-            <span>{'Пользователь короткое имя'}</span>
-        </Dropdown>
-    );
-};

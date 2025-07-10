@@ -44,7 +44,7 @@ export default function App() {
                             <Routes>
                                 <Route path="/" element={<HomePage />} />
                                 <Route
-                                    path="/test"
+                                    path="/profile"
                                     element={
                                         <PrivateRoute>
                                             <ProfilePage />
@@ -53,7 +53,11 @@ export default function App() {
                                 />
                                 <Route
                                     path="/uploads"
-                                    element={<UploadsPage />}
+                                    element={
+                                        <PrivateRoute>
+                                            <UploadsPage />
+                                        </PrivateRoute>
+                                    }
                                 />
                             </Routes>
                         </AppLayout>
