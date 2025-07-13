@@ -31,7 +31,7 @@ export const ProfilePage = () => {
     const [isEditing, setIsEditing] = useState(false);
     const [loading, setLoading] = useState(false);
 
-    const { mutate } = useUpdateUser(user.id);
+    const { mutate } = useUpdateUser();
 
     if (isLoading || !user) return <Skeleton active />;
 
@@ -40,17 +40,14 @@ export const ProfilePage = () => {
         setIsEditing(true);
     };
 
-    const handleSave = () => {
+    const handleSave = async () => {
         try {
-            const values = form.validateFields();
             setLoading(true);
-
-            const data = form.getFieldsValue();
-            console.log(data);
-            mutate(data);
+            const data = await form.validateFields();
+            mutate({ id: user.id, data });
             setIsEditing(false);
         } catch (err) {
-            console.error(err);
+            console.error('Validation failed:', err);
         } finally {
             setLoading(false);
         }
@@ -100,6 +97,7 @@ export const ProfilePage = () => {
                     <Form.Item
                         name="username"
                         label="Имя пользователя"
+                        initialValue={user.username}
                         rules={[
                             {
                                 required: true,
